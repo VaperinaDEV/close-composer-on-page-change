@@ -1,5 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { getOwner } from "@ember/application"
+import { getOwner } from "@ember/application";
 
 export default {
   name: "close-composer-on-page-change",
