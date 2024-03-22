@@ -1,5 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { getOwner } from "@ember/application";
+import { getOwnerWithFallback } from "discourse-common/lib/get-owner";
 
 export default {
   name: "close-composer-on-page-change",
@@ -13,7 +13,7 @@ export default {
       }
       
       api.onPageChange((url, title) => {
-        const composerService = getOwner(this).lookup("service:composer");
+        const composerService = getOwnerWithFallback(this).lookup("service:composer");
         const composerDraft = document.querySelector("#reply-control.draft");
       
         if (!composerDraft) {
