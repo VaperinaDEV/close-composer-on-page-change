@@ -1,5 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { getOwner } from "discourse-common/lib/get-owner";
+import { getOwnerWithFallback } from "discourse-common/lib/get-owner";
 
 export default {
   name: "close-composer-on-page-change",
@@ -13,11 +13,10 @@ export default {
       }
       
       api.onPageChange((url, title) => {
-        const composerService = getOwner(this).lookup("service:composer");
-        const composerHasTitle = document.querySelector("#reply-control.edit-title");
+        const composerService = getOwnerWithFallback(this).lookup("service:composer");
         const composerDraft = document.querySelector("#reply-control.draft");
       
-        if (composerHasTitle && !composerDraft) {
+        if (!composerDraft) {
           composerService.toggle();
         }
       });
