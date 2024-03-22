@@ -1,5 +1,5 @@
 import { withPluginApi } from "discourse/lib/plugin-api";
-import { getOwner } from "discourse-common/lib/get-owner";
+import { getOwner } from "@ember/application"
 
 export default {
   name: "close-composer-on-page-change",
@@ -14,10 +14,9 @@ export default {
       
       api.onPageChange((url, title) => {
         const composerService = getOwner(this).lookup("service:composer");
-        const composerHasTitle = document.querySelector("#reply-control.edit-title");
         const composerDraft = document.querySelector("#reply-control.draft");
       
-        if (composerHasTitle && !composerDraft) {
+        if (!composerDraft) {
           composerService.toggle();
         }
       });
